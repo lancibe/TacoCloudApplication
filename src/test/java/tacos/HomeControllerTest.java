@@ -12,7 +12,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.hamcrest.Matchers.containsString;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(HomeController.class) //针对HomeController的Web测试
 public class HomeControllerTest {
 
     @Autowired
