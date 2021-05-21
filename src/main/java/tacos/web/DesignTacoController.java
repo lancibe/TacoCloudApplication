@@ -1,4 +1,4 @@
-package tacos;
+package tacos.web;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import tacos.Ingredient;
 import tacos.Ingredient.Type;
+import tacos.Taco;
 
 import javax.validation.Valid;
 import java.util.Arrays;
@@ -21,8 +22,10 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/design")
 public class DesignTacoController {
-    @GetMapping
-    public String showDesignForm(Model model){
+
+    @ModelAttribute
+    public void addIngredients(Model model)
+    {
         List<Ingredient> ingredients = Arrays.asList(
                 new Ingredient("FLTO", "Flour Tortilla", Type.WRAP),
                 new Ingredient("COTO", "Corn Tortilla", Type.WRAP),
@@ -40,6 +43,11 @@ public class DesignTacoController {
         for(Type type : types) {
             model.addAttribute(type.toString().toLowerCase(),filterByType(ingredients, type));
         }
+    }
+
+
+    @GetMapping
+    public String showDesignForm(Model model){
         model.addAttribute("design", new Taco());
         return "design";
     }
