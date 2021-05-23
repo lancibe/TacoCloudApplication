@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import tacos.Ingredient;
 import tacos.Ingredient.Type;
+import tacos.Order;
 import tacos.Taco;
 import tacos.data.IngredientRepository;
 import tacos.data.TacoRepository;
@@ -33,6 +34,18 @@ public class DesignTacoController {
     {
         this.ingredientRepo = ingredientRepo;
         this.designRepo = designRepo;
+    }
+
+    @ModelAttribute(name="order")
+    public Order order()
+    {
+        return new Order();
+    }
+
+    @ModelAttribute(name="taco")
+    public Taco taco()
+    {
+        return new Taco();
     }
 
     @ModelAttribute
@@ -72,9 +85,12 @@ public class DesignTacoController {
     }
 
     @PostMapping
-    public String processDesign(@Valid @ModelAttribute("design") Taco design, Errors errors){
+    public String processDesign(@Valid @ModelAttribute("design") Taco design, Errors errors, @ModelAttribute Order order){
         if(errors.hasErrors())
             return "design";
+
+        Taco saved = designRepo.save(design);
+        order.addDesign(saved);
 
         log.info("Processing design:" + design);
         return "redirect:/orders/current";
