@@ -9,15 +9,13 @@
     <h1>Design your taco!</h1>
     <img th:src="@{/images/TacoCloud.png}"/>
 
-    <form method="POST" th:object="${design}">
+    <form method="POST" th:object="${taco}">
         <span class="validationError"
               th:if="${#fields.hasErrors('ingredients')}"
               th:errors="*{ingredients}">Ingredient Error</span>
         <div class="grid">
             <div class="ingredient-group" id="wraps">
                 <h3>Designate your wrap:</h3>
-                <!-- tag::designateWrap[] -->
-                <!--/*@thymesVar id="wrap" type="tacos.Ingredient.Type"*/-->
                 <div th:each="ingredient : ${wrap}">
                     <input name="ingredients" type="checkbox" th:value="${ingredient.id}"/>
                     <span th:text="${ingredient.name}">INGREDIENT</span><br/>
