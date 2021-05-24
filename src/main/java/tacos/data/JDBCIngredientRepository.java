@@ -28,7 +28,7 @@ public class JDBCIngredientRepository implements IngredientRepository{
 
     @Override
     public Iterable<Ingredient> finaAll() {
-        return jdbc.query("select id, name, type, from Ingredient",
+        return jdbc.query("select id, name, type from Ingredient",
                 this::mapRowToIngredient);
     }
 
