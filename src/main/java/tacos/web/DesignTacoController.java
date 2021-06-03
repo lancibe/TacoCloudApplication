@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class DesignTacoController {
 
     private final IngredientRepository ingredientRepo;
-    private final TacoRepository designRepo;
+    private TacoRepository designRepo;
 
     @Autowired
     public DesignTacoController(IngredientRepository ingredientRepo, TacoRepository designRepo)
@@ -82,11 +82,11 @@ public class DesignTacoController {
     }
 
     @PostMapping
-    public String processDesign(@Valid @ModelAttribute("design") Taco design, Errors errors, @ModelAttribute Order order){
+    public String processDesign(@Valid Taco taco, Errors errors, @ModelAttribute Order order){
         if(errors.hasErrors())
             return "design";
 
-        Taco saved = designRepo.save(design);
+        Taco saved = designRepo.save(taco);
         order.addDesign(saved);
 
         return "redirect:/orders/current";
