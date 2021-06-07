@@ -20,6 +20,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .groupSearchFilter("member={0}")
                 .passwordCompare()
                 .passwordEncoder(new BCryptPasswordEncoder())
-                .passwordAttribute("passcode");
+                .passwordAttribute("passcode")
+                .and()
+                .contextSource()
+                .url("ldap://tacocloud.com:389/dc=tacocloud,dc=com");
     }
 }
