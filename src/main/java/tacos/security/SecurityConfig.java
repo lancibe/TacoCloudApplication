@@ -30,6 +30,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .usernameParameter("user")
+                .passwordParameter("pwd")
+                .defaultSuccessUrl("/design", true);
     }
 
     @Override
