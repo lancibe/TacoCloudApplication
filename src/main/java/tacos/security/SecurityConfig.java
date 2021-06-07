@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -23,7 +24,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery(
                         "select username, authority from UserAuthorities " +
                         "where username=?"
-                );
+                )
+                .passwordEncoder(new Pbkdf2PasswordEncoder("123456"));
     }
 
     @Autowired
