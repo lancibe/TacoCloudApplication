@@ -32,7 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .usernameParameter("user")
                 .passwordParameter("pwd")
-                .defaultSuccessUrl("/design", true);
+                .defaultSuccessUrl("/design", true)
+
+                .and()
+                .logout()
+                .logoutSuccessUrl("/");
     }
 
     @Override
