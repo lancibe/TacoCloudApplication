@@ -19,6 +19,9 @@ public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @ManyToOne
+    private User user;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
