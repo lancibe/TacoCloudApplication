@@ -1,8 +1,10 @@
 package tacos.web;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
@@ -12,6 +14,7 @@ import tacos.data.OrderRepository;
 import tacos.data.UserRepository;
 
 import javax.validation.Valid;
+import java.awt.print.Pageable;
 import java.security.Principal;
 
 
@@ -25,6 +28,8 @@ public class OrderController {
     {
         this.orderRepo = orderRepo;
     }
+
+    private OrderProps props;
 
     @GetMapping("/current")
     public String orderForm(@AuthenticationPrincipal User user, @ModelAttribute Order order)
@@ -41,6 +46,15 @@ public class OrderController {
             order.setDeliveryZip(user.getZip());
 
         return "orderForm";
+    }
+
+    @GetMapping
+    public String ordersForUser(@AuthenticationPrincipal User user, Model model)
+    {
+        Pageable pageable = PageRequest.of(0, props.getPageSize());
+        model.addAttribute("orders",
+                orderRepo.findByUserOrderByPlacedAtDesc(user, pageable));
+        return "orderList";
     }
 
     @PostMapping
