@@ -29,7 +29,7 @@ public class DevelopmentConfig {
                 repo.save(new Ingredient("SRCR", "Sour Cream", Ingredient.Type.SAUCE));
 
                 userRepo.save(new User("lancibe", encoder.encode("123456"),
-                        "迅迅", "西长安街", "西安", "TX", "610000", "15729381981"))
+                        "迅迅", "西长安街", "西安", "TX", "610000", "15729381981"));
             }
         };
     }
